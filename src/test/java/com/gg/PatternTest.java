@@ -1,6 +1,7 @@
 package com.gg;
 
 import com.gg.decorator.*;
+import com.gg.proxy.*;
 import com.gg.state.*;
 import com.gg.state.Kahve;
 import com.gg.strategy.*;
@@ -62,5 +63,12 @@ public class PatternTest {
         System.out.println(icecek);
         Icecek icecek1 = new SutluKarisim(new Cay());
         System.out.println(icecek1);
+    }
+
+    @Test
+    public void proxyPatternTest(){
+        Client c = new Client();
+        c.setPersonelServisi(new PersonelServisiSecurityProxy(new PersonelServisiTxProxy(new PersonelServisiImpl())));
+        c.guncelle(new Personel());
     }
 }
