@@ -3,6 +3,7 @@ package com.gg;
 import com.gg.adapter.ElektrikDugmesi;
 import com.gg.adapter.GELambaAdapter;
 import com.gg.adapter.PhilipsLambaAdapter;
+import com.gg.bridge.*;
 import com.gg.decorator.*;
 import com.gg.proxy.*;
 import com.gg.state.*;
@@ -93,5 +94,17 @@ public class PatternTest {
         dugme.ac();
         dugme.kapat();
 
+    }
+
+    @Test
+    public void bridgePatternTest() {
+        Sekil k = new Kare();
+        k.setCizimProgrami(new CizimProgramiV1());
+        k.ciz();
+
+        Sekil u = new Ucgen();
+        u.setCizimProgrami(new CizimProgramiV2());
+
+        u.ciz();
     }
 }
