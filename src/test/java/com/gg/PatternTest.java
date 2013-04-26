@@ -1,5 +1,8 @@
 package com.gg;
 
+import com.gg.adapter.ElektrikDugmesi;
+import com.gg.adapter.GELambaAdapter;
+import com.gg.adapter.PhilipsLambaAdapter;
 import com.gg.decorator.*;
 import com.gg.proxy.*;
 import com.gg.state.*;
@@ -81,5 +84,14 @@ public class PatternTest {
         Client c2 = new Client();
         c.setPersonelServisi(personelServisi);
         c.guncelle(new Personel());
+    }
+
+    @Test
+    public void adapterPatternTest(){
+        ElektrikDugmesi dugme = new ElektrikDugmesi();
+        dugme.setLamba(new GELambaAdapter());
+        dugme.ac();
+        dugme.kapat();
+
     }
 }
