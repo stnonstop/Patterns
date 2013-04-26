@@ -9,6 +9,7 @@ import com.gg.strategy.*;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +70,16 @@ public class PatternTest {
     public void proxyPatternTest(){
         Client c = new Client();
         c.setPersonelServisi(new PersonelServisiSecurityProxy(new PersonelServisiTxProxy(new PersonelServisiImpl())));
+        c.guncelle(new Personel());
+        System.out.println("------------------------------");
+        PersonelServisi target = new PersonelServisiImpl();
+        TxProxyCommand txCommand = new TxProxyCommand(target);
+        ClassLoader classLoader = PersonelServisi.class.getClassLoader();
+        Class[] interfaces = new Class[]{PersonelServisi.class};
+        PersonelServisi personelServisi = (PersonelServisi)Proxy.newProxyInstance(classLoader, interfaces, txCommand);
+        personelServisi = (PersonelServisi)Proxy.newProxyInstance(classLoader, interfaces, new SecurityProxyCommand(personelServisi));
+        Client c2 = new Client();
+        c.setPersonelServisi(personelServisi);
         c.guncelle(new Personel());
     }
 }
