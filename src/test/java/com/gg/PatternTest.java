@@ -18,7 +18,9 @@ import com.gg.decorator.*;
 import com.gg.decorator.Cay;
 import com.gg.factory.Asci;
 import com.gg.factory.ege.EgeliAsci;
+import com.gg.flyweight.Page;
 import com.gg.iterator.CiftSayiIterator;
+import com.gg.memento.Form;
 import com.gg.prototype.*;
 import com.gg.proxy.*;
 import com.gg.state.*;
@@ -234,5 +236,25 @@ public class PatternTest {
         Request request = new Request();
         request.setMiktar(10000);
         System.out.println(satinAlma.onayla(request));
+    }
+
+
+    @Test
+    public void mementoPatterntest() {
+        Form f = new Form("Aziz", "Durmaz");
+        Form.FormMemento memento =  f.createMemento();
+        //save memento
+        //load memento
+
+        f = new Form(memento);
+        System.out.println(f.toString());
+    }
+
+    @Test
+    public void flyweightPatternTest() {
+        Page p = new Page();
+        for(int i= 0; i < 24*80; i++){
+            p.addChar('A', i%24, i%80);
+        }
     }
 }
