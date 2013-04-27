@@ -10,6 +10,18 @@ import com.gg.factory.Tarhana;
  * Time: 9:26 AM
  */
 public class EgeliAsci implements Asci {
+
+    private static EgeliAsci INSTANCE = new EgeliAsci();
+    //public final static EgeliAsci INSTANCE = new EgeliAsci();
+
+    private EgeliAsci(){
+
+    }
+
+    public static final EgeliAsci getInstance(){
+        return INSTANCE;
+    }
+
     @Override
     public Tarhana createTarhana() {
         return new EgeUsuluTarhana();

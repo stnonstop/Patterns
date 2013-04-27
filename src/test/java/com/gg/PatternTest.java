@@ -5,8 +5,10 @@ import com.gg.adapter.GELambaAdapter;
 import com.gg.adapter.PhilipsLambaAdapter;
 import com.gg.bridge.*;
 import com.gg.decorator.*;
+import com.gg.decorator.Cay;
 import com.gg.factory.Asci;
 import com.gg.factory.ege.EgeliAsci;
+import com.gg.prototype.*;
 import com.gg.proxy.*;
 import com.gg.state.*;
 import com.gg.state.Kahve;
@@ -112,7 +114,23 @@ public class PatternTest {
 
     @Test
     public void factoryPatternTest(){
-        Asci asci = new EgeliAsci();
+        Asci asci = EgeliAsci.getInstance();
 
+    }
+
+    @Test
+    public void prototypePatterntest(){
+        Menu menu = new Menu();
+        com.gg.prototype.Cay clone = menu.getTekSekerliCayCek();
+        System.out.println("Seker Sayisi : " + clone.getSekerSayisi());
+        System.out.println(menu.SABLON.getCayList() == clone.getCayList());
+        clone.getCayList().add(new com.gg.prototype.Cay());
+        System.out.println(menu.SABLON.getCayList().size());
+        System.out.println("****************");
+        clone = new com.gg.prototype.Cay(menu.SABLON);
+        System.out.println("Seker Sayisi : " + clone.getSekerSayisi());
+        System.out.println(menu.SABLON.getCayList() == clone.getCayList());
+        clone.getCayList().add(new com.gg.prototype.Cay());
+        System.out.println(menu.SABLON.getCayList().size());
     }
 }

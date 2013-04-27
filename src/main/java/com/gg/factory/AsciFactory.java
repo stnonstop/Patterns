@@ -9,8 +9,8 @@ import com.gg.factory.trakya.TrakyaliAsci;
  * Time: 9:36 AM
  */
 public class AsciFactory {
-    private static final EgeliAsci EGELI_ASCI = new EgeliAsci();
-    private static final TrakyaliAsci TRAKYALI_ASCI = new TrakyaliAsci();
+    private static final EgeliAsci EGELI_ASCI = EgeliAsci.getInstance();
+    private static final TrakyaliAsci TRAKYALI_ASCI = TrakyaliAsci.getInstance();
 
     public static Asci createEgeliAsci() {
         return EGELI_ASCI;
