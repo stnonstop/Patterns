@@ -4,22 +4,37 @@ import com.gg.adapter.ElektrikDugmesi;
 import com.gg.adapter.GELambaAdapter;
 import com.gg.adapter.PhilipsLambaAdapter;
 import com.gg.bridge.*;
+import com.gg.builder.ProgramlanaBilirMenuBuilder;
+import com.gg.builder.ProgramlanaBilirMenuBuilderImpl;
+import com.gg.chainofresp.*;
+import com.gg.command.MantiSiparisi;
+import com.gg.command.ProgramlanaBilirMenu;
+import com.gg.command.SiparisKomutu;
+import com.gg.command.TarhanaSiparis;
+import com.gg.composite.Kola;
+import com.gg.composite.KolaBardakBirarada;
+import com.gg.composite.Urun;
 import com.gg.decorator.*;
 import com.gg.decorator.Cay;
 import com.gg.factory.Asci;
 import com.gg.factory.ege.EgeliAsci;
+import com.gg.iterator.CiftSayiIterator;
 import com.gg.prototype.*;
 import com.gg.proxy.*;
 import com.gg.state.*;
 import com.gg.state.Kahve;
 import com.gg.strategy.*;
 
+import com.gg.visitor.*;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -132,5 +147,92 @@ public class PatternTest {
         System.out.println(menu.SABLON.getCayList() == clone.getCayList());
         clone.getCayList().add(new com.gg.prototype.Cay());
         System.out.println(menu.SABLON.getCayList().size());
+    }
+
+    @Test
+    public void builderPatternTest() {
+        StringBuffer stringBuffer = new StringBuffer();
+        String string = stringBuffer.append(1).append(true).append("xxx").toString();
+        System.out.println(string);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        String stringV2 = stringBuilder.append(1).append(true).append("asd").toString();
+        System.out.println(stringV2);
+
+    }
+
+    @Test
+    public void builderPatternTest2(){
+        ProgramlanaBilirMenuBuilder builder = new ProgramlanaBilirMenuBuilderImpl();
+        ProgramlanaBilirMenu menu = builder.addKomut(new TarhanaSiparis()).addKomut(new MantiSiparisi()).getProduct();
+        menu.setVisible(true);
+        try {
+            System.in.read();
+        } catch (IOException e) {
+
+        }
+    }
+
+    /*@Test
+    public void iteratorPatternTest(){
+        ProgramlanaBilirMenuBuilder builder = new ProgramlanaBilirMenuBuilderImpl();
+        ProgramlanaBilirMenu menu = builder.addKomut(new TarhanaSiparis()).addKomut(new MantiSiparisi()).getProduct();
+        Iterator<SiparisKomutu> iterator = builder.getKomutlar().iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
+    } */
+
+    @Test
+    public void iteratorPatternTest(){
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        Iterator<Integer> itr = new CiftSayiIterator(list);
+        while (itr.hasNext()){
+            System.out.println(itr.next());
+        }
+    }
+
+
+    @Test
+    public void visitorPatternTest() {
+        A a1 = new A();
+        A a2 = new B();
+
+        Visitor visitor = new Visitor();
+        visitor.visit(a1);
+        visitor.visit(a2);
+
+        Visitor subvisitor = new SubVisitor();
+        //subvisitor.visit(a1);
+        //subvisitor.visit(a2);
+
+        a1.accept(subvisitor);
+        a2.accept(subvisitor);
+    }
+
+    @Test
+    public void visitorPatternTest2() {
+        List<? extends Urun> alisverisSepeti = Arrays.asList(new Kola(2,2), new KolaBardakBirarada(),new KolaBardakBirarada());
+
+        UrunVisitor urunVisitor = new UrunVisitor();
+        for(Urun urun: alisverisSepeti){
+            System.out.println(urun.toString());
+            urun.accept(urunVisitor);
+        }
+
+        System.out.println(urunVisitor.getToplamFiyat());
+    }
+
+    @Test
+    public void chainofrespPatternTest() {
+        SatinAlma satinAlma = new SatinAlma();
+        Request request = new Request();
+        request.setMiktar(10000);
+        System.out.println(satinAlma.onayla(request));
     }
 }
