@@ -5,6 +5,8 @@ import com.gg.adapter.GELambaAdapter;
 import com.gg.adapter.PhilipsLambaAdapter;
 import com.gg.bridge.*;
 import com.gg.decorator.*;
+import com.gg.factory.Asci;
+import com.gg.factory.ege.EgeliAsci;
 import com.gg.proxy.*;
 import com.gg.state.*;
 import com.gg.state.Kahve;
@@ -106,5 +108,11 @@ public class PatternTest {
         u.setCizimProgrami(new CizimProgramiV2());
 
         u.ciz();
+    }
+
+    @Test
+    public void factoryPatternTest(){
+        Asci asci = new EgeliAsci();
+
     }
 }
