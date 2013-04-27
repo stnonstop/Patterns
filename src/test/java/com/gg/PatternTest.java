@@ -22,6 +22,9 @@ import com.gg.factory.ege.EgeliAsci;
 import com.gg.flyweight.Page;
 import com.gg.iterator.CiftSayiIterator;
 import com.gg.memento.Form;
+import com.gg.observer.Ajans;
+import com.gg.observer.Gazete;
+import com.gg.observer.HaberSitesi;
 import com.gg.prototype.*;
 import com.gg.proxy.*;
 import com.gg.state.*;
@@ -263,5 +266,19 @@ public class PatternTest {
     public void facadePatternTest() {
         MorgageServisi morgageServisi = new MorgageServisi();
         System.out.println(morgageServisi.basvur("123"));
+    }
+
+    @Test
+    public void observerPatternTest() {
+        Ajans ajans = new Ajans();
+        Gazete gazete = new Gazete(ajans);
+        ajans.register(gazete);
+        ajans.haberVer("Hello");
+        System.out.println("-------------------");
+        HaberSitesi haberSitesi = new HaberSitesi();
+        ajans.register(haberSitesi);
+        ajans.haberVer("Goodbye");
+        System.out.println("-------------------");
+        gazete.haberVer("Gazete Haberi");
     }
 }
