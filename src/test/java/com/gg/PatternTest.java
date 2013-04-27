@@ -16,6 +16,7 @@ import com.gg.composite.KolaBardakBirarada;
 import com.gg.composite.Urun;
 import com.gg.decorator.*;
 import com.gg.decorator.Cay;
+import com.gg.facade.MorgageServisi;
 import com.gg.factory.Asci;
 import com.gg.factory.ege.EgeliAsci;
 import com.gg.flyweight.Page;
@@ -256,5 +257,11 @@ public class PatternTest {
         for(int i= 0; i < 24*80; i++){
             p.addChar('A', i%24, i%80);
         }
+    }
+
+    @Test
+    public void facadePatternTest() {
+        MorgageServisi morgageServisi = new MorgageServisi();
+        System.out.println(morgageServisi.basvur("123"));
     }
 }
